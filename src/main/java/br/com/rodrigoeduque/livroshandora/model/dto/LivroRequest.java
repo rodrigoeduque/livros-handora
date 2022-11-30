@@ -1,6 +1,7 @@
 package br.com.rodrigoeduque.livroshandora.model.dto;
 
 import br.com.rodrigoeduque.livroshandora.model.Livro;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 public class LivroRequest {
 
     @NotBlank
-    @Length(min = 200, max = 4000)
+    @Length(max = 200)
     private String titulo;
 
     @NotBlank
@@ -21,10 +22,11 @@ public class LivroRequest {
 
     @Past
     @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataPublicacao;
 
     @NotNull
-    @ISBN
+    @ISBN(type = ISBN.Type.ANY)
     private String isbn;
 
     public LivroRequest(String titulo, String descricao, LocalDate dataPublicacao, String isbn) {
